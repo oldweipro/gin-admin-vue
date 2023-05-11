@@ -1,9 +1,9 @@
-//@author: [bstdn](https://github.com/bstdn)
-//@description: ESlint 语法检测
+// @author: [bstdn](https://github.com/bstdn)
+// @description: ESlint 语法检测
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     sourceType: 'module'
   },
   env: {
@@ -13,26 +13,32 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
   globals: {
-    defineProps: "readonly",
-    defineEmits: "readonly",
-    defineExpose: "readonly",
-    withDefaults: "readonly",
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly',
   },
   rules: {
-    'vue/no-v-model-argument':'off',
-    'vue/max-attributes-per-line': [
-      2,
-      {
-        singleline: 10,
-        multiline: {
-          max: 1,
-          allowFirstLine: false
-        }
-      }
-    ],
+    'vue/no-v-model-argument': 'off',
+    // 强制第一个属性的位置(属性换行)
+    'vue/first-attribute-linebreak': [2, {
+      // 单行时，第一属性前不允许使用换行符
+      singleline: 'beside',
+      // 多行时，第一属性前必须使用换行符
+      multiline: 'below',
+    }],
+    // 强制每行的最大属性数
+    'vue/max-attributes-per-line': [2, {
+      // 单行时可以接收最大数量
+      singleline: 10,
+      // 多行时可以接收最大数量
+      multiline: {
+        max: 1,
+      },
+    }],
+    'vue/component-definition-name-casing': ['error', 'PascalCase'],
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/no-v-html': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [
@@ -69,7 +75,7 @@ module.exports = {
     curly: [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
-    eqeqeq: ['error', 'always', { null: 'ignore' }],
+    eqeqeq: ['error', 'always', {null: 'ignore'}],
     'generator-star-spacing': [
       2,
       {
