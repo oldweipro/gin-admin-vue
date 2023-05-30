@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
     nickName: '',
     headerImg: '',
     authority: {},
-    sideMode: 'dark',
+    sideMode: 'light',
     activeColor: 'var(--el-color-primary)',
     baseColor: '#fff'
   })

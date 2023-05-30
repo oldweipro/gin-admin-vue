@@ -2,24 +2,21 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" ref="elFormRef" label-position="right" :rules="rule" label-width="80px">
-        <el-form-item label="认证身份ID:" prop="certification_id_card">
-          <el-input v-model="formData.certification_id_card" :clearable="true" placeholder="请输入" />
+        <el-form-item label="数量:" prop="amount">
+          <el-input v-model.number="formData.amount" :clearable="false" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="认证真实姓名:" prop="certification_real_name">
-          <el-input v-model="formData.certification_real_name" :clearable="true" placeholder="请输入" />
+        <el-form-item label="过期时间:" prop="expirationTime">
+          <el-input v-model.number="formData.expirationTime" :clearable="false" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="认证结果:" prop="certification_result">
-          <el-input v-model="formData.certification_result" :clearable="true" placeholder="请输入" />
+        <el-form-item label="票据名称:" prop="ticketName">
+          <el-input v-model="formData.ticketName" :clearable="false" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="认证结果状态码:" prop="certification_code">
-          <el-input v-model.number="formData.certification_code" :clearable="true" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="认证结果信息:" prop="certification_msg">
-          <el-input v-model="formData.certification_msg" :clearable="true" placeholder="请输入" />
+        <el-form-item label="归属:" prop="belongTo">
+          <el-input v-model.number="formData.belongTo" :clearable="true" placeholder="请输入" />
         </el-form-item>
         <el-form-item>
-          <el-button size="small" type="primary" @click="save">保存</el-button>
-          <el-button size="small" type="primary" @click="back">返回</el-button>
+          <el-button type="primary" @click="save">保存</el-button>
+          <el-button type="primary" @click="back">返回</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -28,16 +25,16 @@
 
 <script>
 export default {
-  name: 'CertificationRecord'
+  name: 'ChatTicket'
 }
 </script>
 
 <script setup>
 import {
-  createCertificationRecord,
-  updateCertificationRecord,
-  findCertificationRecord
-} from '@/api/certificationRecord'
+  createChatTicket,
+  updateChatTicket,
+  findChatTicket
+} from '@/api/chatTicket'
 
 // 自动获取字典
 import { getDictFunc } from '@/utils/format'
@@ -49,20 +46,24 @@ const router = useRouter()
 
 const type = ref('')
 const formData = ref({
-            certification_id_card: '',
-            certification_real_name: '',
-            certification_result: '',
-            certification_code: 0,
-            certification_msg: '',
+            amount: 0,
+            expirationTime: 0,
+            ticketName: '',
+            belongTo: 0,
         })
 // 验证规则
 const rule = reactive({
-               certification_id_card : [{
+               amount : [{
+                   required: true,
+                   message: '数量不能为空',
+                   trigger: ['input','blur'],
+               }],
+               expirationTime : [{
                    required: true,
                    message: '',
                    trigger: ['input','blur'],
                }],
-               certification_real_name : [{
+               ticketName : [{
                    required: true,
                    message: '',
                    trigger: ['input','blur'],
@@ -75,9 +76,9 @@ const elFormRef = ref()
 const init = async () => {
  // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
     if (route.query.id) {
-      const res = await findCertificationRecord({ ID: route.query.id })
+      const res = await findChatTicket({ ID: route.query.id })
       if (res.code === 0) {
-        formData.value = res.data.recertificationRecord
+        formData.value = res.data.rechatTicket
         type.value = 'update'
       }
     } else {
@@ -93,13 +94,13 @@ const save = async() => {
             let res
            switch (type.value) {
              case 'create':
-               res = await createCertificationRecord(formData.value)
+               res = await createChatTicket(formData.value)
                break
              case 'update':
-               res = await updateCertificationRecord(formData.value)
+               res = await updateChatTicket(formData.value)
                break
              default:
-               res = await createCertificationRecord(formData.value)
+               res = await createChatTicket(formData.value)
                break
            }
            if (res.code === 0) {

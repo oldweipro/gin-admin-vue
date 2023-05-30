@@ -108,7 +108,7 @@ import {
   updateCertificationRecord,
   findCertificationRecord,
   getCertificationRecordList
-} from '@/api/certification_record'
+} from '@/api/certificationRecord'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
