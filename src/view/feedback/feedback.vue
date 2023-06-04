@@ -7,19 +7,8 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item>
-        <el-form-item label="反馈的文字内容">
-         <el-input v-model="searchInfo.feedback_text" placeholder="搜索条件" />
-
-        </el-form-item>
-        <el-form-item label="反馈用户的ID">
-            
-             <el-input v-model.number="searchInfo.user_id" placeholder="搜索条件" />
-
-        </el-form-item>
-        <el-form-item label="反馈的上级ID">
-            
-             <el-input v-model.number="searchInfo.parent_id" placeholder="搜索条件" />
-
+        <el-form-item label="反馈内容">
+         <el-input v-model="searchInfo.feedbackText" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -53,12 +42,11 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="反馈的文字内容" prop="feedback_text" width="120" />
-        <el-table-column align="left" label="反馈用户的ID" prop="user_id" width="120" />
-        <el-table-column align="left" label="反馈的上级ID" prop="parent_id" width="120" />
+        <el-table-column align="left" label="反馈" prop="feedbackText" width="120" />
+        <el-table-column align="left" label="回复" prop="replyText" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="primary" link icon="edit" class="table-button" @click="updateFeedbackFunc(scope.row)">变更</el-button>
+            <el-button type="primary" link icon="edit" class="table-button" @click="updateFeedbackFunc(scope.row)">回复</el-button>
             <el-button type="primary" link icon="delete" @click="deleteRow(scope.row)">删除</el-button>
             </template>
         </el-table-column>
@@ -77,14 +65,11 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="反馈的文字内容:"  prop="feedback_text" >
-          <el-input v-model="formData.feedback_text" :clearable="false"  placeholder="请输入" />
+        <el-form-item label="反馈:"  prop="feedbackText" >
+          <el-input v-model="formData.feedbackText" :clearable="false"  placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="反馈用户的ID:"  prop="user_id" >
-          <el-input v-model.number="formData.user_id" :clearable="false" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="反馈的上级ID:"  prop="parent_id" >
-          <el-input v-model.number="formData.parent_id" :clearable="false" placeholder="请输入" />
+        <el-form-item label="回复:"  prop="replyText" >
+          <el-input v-model="formData.replyText" :clearable="false"  placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -120,32 +105,26 @@ import { ref, reactive } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-        feedback_text: '',
-        user_id: 0,
-        parent_id: 0,
-        })
+  feedbackText: '',
+  replyText: '',
+  parentId: 0,
+})
 
 // 验证规则
 const rule = reactive({
-               feedback_text : [{
-                   required: true,
-                   message: '请输入反馈内容',
-                   trigger: ['input','blur'],
-               }],
-               user_id : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
-               parent_id : [{
-                   required: true,
-                   message: '',
-                   trigger: ['input','blur'],
-               }],
+  feedbackText: [{
+    required: true,
+    message: '请输入反馈内容',
+    trigger: ['input', 'blur'],
+  }],
+  parentId: [{
+    required: true,
+    message: '',
+    trigger: ['input', 'blur'],
+  }],
 })
 
 const elFormRef = ref()
-
 
 // =========== 表格控制部分 ===========
 const page = ref(1)
@@ -201,12 +180,11 @@ const setOptions = async () =>{
 // 获取需要的字典 可能为空 按需保留
 setOptions()
 
-
 // 多选数据
 const multipleSelection = ref([])
 // 多选
 const handleSelectionChange = (val) => {
-    multipleSelection.value = val
+  multipleSelection.value = val
 }
 
 // 删除行
@@ -257,14 +235,14 @@ const type = ref('')
 
 // 更新行
 const updateFeedbackFunc = async(row) => {
-    const res = await findFeedback({ ID: row.ID })
-    type.value = 'update'
-    if (res.code === 0) {
-        formData.value = res.data.refeedback
-        dialogFormVisible.value = true
-    }
+  const res = await findFeedback({ ID: row.ID })
+  type.value = 'update'
+  if (res.code === 0) {
+    formData.value.parentId = res.data.refeedback.ID
+    formData.value.feedbackText = res.data.refeedback.feedbackText
+    dialogFormVisible.value = true
+  }
 }
-
 
 // 删除行
 const deleteFeedbackFunc = async (row) => {
@@ -294,36 +272,39 @@ const openDialog = () => {
 const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
-        feedback_text: '',
+        feedbackText: '',
         user_id: 0,
-        parent_id: 0,
+        parentId: 0,
         }
 }
 // 弹窗确定
 const enterDialog = async () => {
-     elFormRef.value?.validate( async (valid) => {
-             if (!valid) return
-              let res
-              switch (type.value) {
-                case 'create':
-                  res = await createFeedback(formData.value)
-                  break
-                case 'update':
-                  res = await updateFeedback(formData.value)
-                  break
-                default:
-                  res = await createFeedback(formData.value)
-                  break
-              }
-              if (res.code === 0) {
-                ElMessage({
-                  type: 'success',
-                  message: '创建/更改成功'
-                })
-                closeDialog()
-                getTableData()
-              }
+  elFormRef.value?.validate( async (valid) => {
+    if (!valid) return
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createFeedback(formData.value)
+        break
+      case 'update':
+        formData.value.feedbackText = formData.value.replyText
+        console.log(formData.value)
+        res = await createFeedback(formData.value)
+        // res = await updateFeedback(formData.value)
+        break
+      default:
+        res = await createFeedback(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '创建/更改成功'
       })
+      closeDialog()
+      getTableData()
+    }
+  })
 }
 </script>
 
