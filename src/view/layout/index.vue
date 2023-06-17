@@ -1,11 +1,11 @@
 <template>
   <el-container class="layout-cont">
-    <el-container :class="[isSider?'openside':'hideside',isMobile ? 'mobile': '']">
+    <el-container :class="[isSide?'openside':'hideside',isMobile ? 'mobile': '']">
       <el-row :class="[isShadowBg?'shadowBg':'']" @click="changeShadow()" />
       <el-aside class="main-cont main-left gva-aside">
         <div class="tilte" :style="{background: backgroundColor}">
           <img alt class="logoimg" src="@/assets/ladder.png">
-          <div v-if="isSider" class="tit-text" :style="{color:textColor}">{{ $GIN_VUE_ADMIN.appName }}</div>
+          <div v-if="isSide" class="tit-text" :style="{color:textColor}">{{ $GIN_VUE_ADMIN.appName }}</div>
         </div>
         <Aside class="aside" />
       </el-aside>
@@ -106,7 +106,7 @@
         </router-view>
         <BottomInfo />
         <setting />
-        <CommandMenu ref="command"/>
+        <CommandMenu ref="command" />
       </el-main>
     </el-container>
 
@@ -115,7 +115,7 @@
 
 <script>
 export default {
-  name: 'Layout',
+  name: 'MainLayout',
 }
 </script>
 
@@ -134,20 +134,22 @@ import { useRouter, useRoute } from 'vue-router'
 import { useRouterStore } from '@/pinia/modules/router'
 import { fmtTitle } from '@/utils/fmtRouterTitle'
 import { useUserStore } from '@/pinia/modules/user'
+import $GIN_VUE_ADMIN from '@/core/config'
+import { ArrowDown } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const route = useRoute()
 const routerStore = useRouterStore()
 // 三种窗口适配
 const isCollapse = ref(false)
-const isSider = ref(true)
+const isSide = ref(true)
 const isMobile = ref(false)
 
 const first = ref('')
-const dialogVisible = ref(false)
+// const dialogVisible = ref(false)
 const initPage = () => {
   // 判断当前用户的操作系统
-  if(window.localStorage.getItem('osType') === 'WIN') {
+  if (window.localStorage.getItem('osType') === 'WIN') {
     first.value = 'Ctrl'
   } else {
     first.value = '⌘'
@@ -156,24 +158,24 @@ const initPage = () => {
   const handleKeyDown = (e) => {
     if (e.ctrlKey && e.key === 'k') {
       // 阻止浏览器默认事件
-      e.preventDefault();
+      e.preventDefault()
       handleCommand()
     }
   }
-  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keydown', handleKeyDown)
 
-    const screenWidth = document.body.clientWidth
+  const screenWidth = document.body.clientWidth
   if (screenWidth < 1000) {
     isMobile.value = true
-    isSider.value = false
+    isSide.value = false
     isCollapse.value = true
   } else if (screenWidth >= 1000 && screenWidth < 1200) {
     isMobile.value = false
-    isSider.value = false
+    isSide.value = false
     isCollapse.value = true
   } else {
     isMobile.value = false
-    isSider.value = true
+    isSide.value = true
     isCollapse.value = false
   }
 }
@@ -264,7 +266,7 @@ const reload = async() => {
 const isShadowBg = ref(false)
 const totalCollapse = () => {
   isCollapse.value = !isCollapse.value
-  isSider.value = !isCollapse.value
+  isSide.value = !isCollapse.value
   isShadowBg.value = !isCollapse.value
   emitter.emit('collapse', isCollapse.value)
 }
@@ -274,7 +276,7 @@ const toPerson = () => {
 }
 const changeShadow = () => {
   isShadowBg.value = !isShadowBg.value
-  isSider.value = !!isCollapse.value
+  isSide.value = !!isCollapse.value
   totalCollapse()
 }
 </script>

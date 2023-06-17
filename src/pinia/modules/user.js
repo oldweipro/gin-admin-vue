@@ -44,7 +44,7 @@ export const useUserStore = defineStore('user', () => {
   const GetUserInfo = async() => {
     const res = await getUserInfo()
     if (res.code === 0) {
-      setUserInfo(res.data.userInfo)
+      setUserInfo(res.data.userInfo.user)
     }
     return res
   }
@@ -57,6 +57,7 @@ export const useUserStore = defineStore('user', () => {
     try {
       const res = await login(loginInfo)
       if (res.code === 0) {
+        console.log(res.data)
         setUserInfo(res.data.user)
         setToken(res.data.token)
         const routerStore = useRouterStore()
