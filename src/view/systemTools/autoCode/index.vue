@@ -22,11 +22,11 @@
               </template>
               <el-select v-model="dbform.businessDB" clearable style="width:194px" placeholder="选择业务库" @change="getDbFunc">
                 <el-option
-                  v-for="item in dbList"
-                  :key="item.aliasName"
-                  :value="item.aliasName"
-                  :label="item.aliasName"
-                  :disabled="item.disable"
+                    v-for="item in dbList"
+                    :key="item.aliasName"
+                    :value="item.aliasName"
+                    :label="item.aliasName"
+                    :disabled="item.disable"
                 >
                   <div>
                     <span>{{ item.aliasName }}</span>
@@ -38,25 +38,25 @@
             <el-form-item label="数据库名" prop="structName">
               <el-select v-model="dbform.dbName" clearable filterable placeholder="请选择数据库" @change="getTableFunc">
                 <el-option
-                  v-for="item in dbOptions"
-                  :key="item.database"
-                  :label="item.database"
-                  :value="item.database"
+                    v-for="item in dbOptions"
+                    :key="item.database"
+                    :label="item.database"
+                    :value="item.database"
                 />
               </el-select>
             </el-form-item>
             <el-form-item label="表名" prop="structName">
               <el-select
-                v-model="dbform.tableName"
-                :disabled="!dbform.dbName"
-                filterable
-                placeholder="请选择表"
+                  v-model="dbform.tableName"
+                  :disabled="!dbform.dbName"
+                  filterable
+                  placeholder="请选择表"
               >
                 <el-option
-                  v-for="item in tableOptions"
-                  :key="item.tableName"
-                  :label="item.tableName"
-                  :value="item.tableName"
+                    v-for="item in tableOptions"
+                    :key="item.tableName"
+                    :label="item.tableName"
+                    :value="item.tableName"
                 />
               </el-select>
             </el-form-item>
@@ -99,16 +99,16 @@
             </el-tooltip>
           </template>
           <el-select
-            v-model="form.businessDB"
-            style="width:194px"
-            placeholder="选择业务库"
+              v-model="form.businessDB"
+              style="width:194px"
+              placeholder="选择业务库"
           >
             <el-option
-              v-for="item in dbList"
-              :key="item.aliasName"
-              :value="item.aliasName"
-              :label="item.aliasName"
-              :disabled="item.disable"
+                v-for="item in dbList"
+                :key="item.aliasName"
+                :value="item.aliasName"
+                :label="item.aliasName"
+                :disabled="item.disable"
             >
               <div>
                 <span>{{ item.aliasName }}</span>
@@ -146,11 +146,11 @@
     <!-- 组件列表 -->
     <div class="gva-table-box">
       <div class="gva-btn-list">
-        <el-button type="primary" @click="editAndAddField()">新增Field</el-button>
+        <el-button type="primary" @click="editAndAddField()">新增字段</el-button>
       </div>
       <el-table :data="form.fields">
         <el-table-column align="left" type="index" label="序列" width="60" />
-        <el-table-column align="left" prop="fieldName" label="Field名" width="160">
+        <el-table-column align="left" prop="fieldName" label="字段名称" width="160">
           <template #default="{row}">
             <el-input v-model="row.fieldName" />
           </template>
@@ -166,24 +166,24 @@
         <el-table-column align="left" prop="sort" label="排序">
           <template #default="{row}"> <el-checkbox v-model="row.sort" /> </template>
         </el-table-column>
-        <el-table-column align="left" prop="fieldJson" width="160px" label="FieldJson">
+        <el-table-column align="left" prop="fieldJson" width="160px" label="字段Json">
           <template #default="{row}">
             <el-input v-model="row.fieldJson" />
           </template>
         </el-table-column>
-        <el-table-column align="left" prop="fieldType" label="Field数据类型" width="160">
+        <el-table-column align="left" prop="fieldType" label="字段类型" width="160">
           <template #default="{row}">
             <el-select
-              v-model="row.fieldType"
-              style="width:100%"
-              placeholder="请选择field数据类型"
-              clearable
+                v-model="row.fieldType"
+                style="width:100%"
+                placeholder="请选择字段类型"
+                clearable
             >
               <el-option
-                v-for="item in typeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                  v-for="item in typeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
               />
             </el-select>
           </template>
@@ -206,17 +206,17 @@
         <el-table-column align="left" prop="fieldSearchType" label="搜索条件" width="130">
           <template #default="{row}">
             <el-select
-              v-model="row.fieldSearchType"
-              style="width:100%"
-              placeholder="请选择Field查询条件"
-              clearable
+                v-model="row.fieldSearchType"
+                style="width:100%"
+                placeholder="请选择字段查询条件"
+                clearable
             >
               <el-option
-                v-for="item in typeSearchOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="
+                  v-for="item in typeSearchOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  :disabled="
                   (row.fieldType!=='string'&&item.value==='LIKE')||
                     ((row.fieldType!=='int'&&row.fieldType!=='time.Time'&&row.fieldType!=='float64')&&(item.value==='BETWEEN' || item.value==='NOT BETWEEN'))
                 "
@@ -229,24 +229,24 @@
           <template #default="scope">
             <el-button
 
-              type="primary"
-              link
-              icon="edit"
-              @click="editAndAddField(scope.row)"
+                type="primary"
+                link
+                icon="edit"
+                @click="editAndAddField(scope.row)"
             >高级编辑</el-button>
             <el-button
 
-              type="primary"
-              link
-              :disabled="scope.$index === 0"
-              @click="moveUpField(scope.$index)"
+                type="primary"
+                link
+                :disabled="scope.$index === 0"
+                @click="moveUpField(scope.$index)"
             >上移</el-button>
             <el-button
 
-              type="primary"
-              link
-              :disabled="(scope.$index + 1) === form.fields.length"
-              @click="moveDownField(scope.$index)"
+                type="primary"
+                link
+                :disabled="(scope.$index + 1) === form.fields.length"
+                @click="moveDownField(scope.$index)"
             >下移</el-button>
             <el-popover v-model="scope.row.visible" placement="top">
               <p>确定删除吗？</p>
@@ -269,7 +269,7 @@
     </div>
     <!-- 组件弹窗 -->
     <el-dialog v-model="dialogFlag" width="70%" title="组件内容">
-      <FieldDialog v-if="dialogFlag" ref="fieldDialogNode" :dialog-middle="dialogMiddle" />
+      <FieldDialog v-if="dialogFlag" ref="fieldDialogNode" :dialog-middle="dialogMiddle" :typeOptions="typeOptions" :typeSearchOptions="typeSearchOptions" />
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="closeDialog">取 消</el-button>
@@ -332,6 +332,19 @@ const typeOptions = ref([
   {
     label: '枚举',
     value: 'enum'
+  },
+  {
+    label: '单图片（字符串）',
+    value: 'picture',
+  },
+  {
+    label: '文件（json字符串）',
+    value: 'file',
+  },
+  {
+    label: '多图片（开发中）',
+    value: 'pictures',
+    disabled: true
   }
 ])
 
@@ -477,7 +490,7 @@ const enterDialog = () => {
   currentInstance.refs.fieldDialogNode.fieldDialogFrom.validate(valid => {
     if (valid) {
       dialogMiddle.value.fieldName = toUpperCase(
-        dialogMiddle.value.fieldName
+          dialogMiddle.value.fieldName
       )
       if (addFlag.value === 'add') {
         form.value.fields.push(dialogMiddle.value)
@@ -507,7 +520,7 @@ const enterForm = async(isPreview) => {
     return false
   }
   if (
-    form.value.fields.some(item => item.fieldName === form.value.structName)
+      form.value.fields.some(item => item.fieldName === form.value.structName)
   ) {
     ElMessage({
       type: 'error',
@@ -629,26 +642,26 @@ const getColumnFunc = async() => {
     form.value.autoMoveFile = true
     form.value.fields = []
     res.data.columns &&
-          res.data.columns.forEach(item => {
-            if (!gormModelList.some(gormfd => gormfd === item.columnName)) {
-              const fbHump = toHump(item.columnName)
-              form.value.fields.push({
-                fieldName: toUpperCase(fbHump),
-                fieldDesc: item.columnComment || fbHump + '字段',
-                fieldType: fdMap.value[item.dataType],
-                dataType: item.dataType,
-                fieldJson: fbHump,
-                dataTypeLong: item.dataTypeLong && item.dataTypeLong.split(',')[0],
-                columnName: dbtype === 'oracle' ? item.columnName.toUpperCase() : item.columnName,
-                comment: item.columnComment,
-                require: false,
-                errorText: '',
-                clearable: true,
-                fieldSearchType: '',
-                dictType: ''
-              })
-            }
-          })
+    res.data.columns.forEach(item => {
+      if (!gormModelList.some(gormfd => gormfd === item.columnName)) {
+        const fbHump = toHump(item.columnName)
+        form.value.fields.push({
+          fieldName: toUpperCase(fbHump),
+          fieldDesc: item.columnComment || fbHump + '字段',
+          fieldType: fdMap.value[item.dataType],
+          dataType: item.dataType,
+          fieldJson: fbHump,
+          dataTypeLong: item.dataTypeLong && item.dataTypeLong.split(',')[0],
+          columnName: dbtype === 'oracle' ? item.columnName.toUpperCase() : item.columnName,
+          comment: item.columnComment,
+          require: false,
+          errorText: '',
+          clearable: true,
+          fieldSearchType: '',
+          dictType: ''
+        })
+      }
+    })
   }
 }
 const setFdMap = async() => {
@@ -706,11 +719,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .previewCodeTool {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-  }
+.previewCodeTool {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
 .button-box {
   padding: 10px 20px;
   .el-button {
