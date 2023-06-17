@@ -7,7 +7,7 @@ dist/
 *.iml
 .DS_Store
 node_modules/
-dist.zip
+*.zip
 dist_electron
 
 # local env files
