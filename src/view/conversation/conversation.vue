@@ -26,10 +26,9 @@
         row-key="ID"
         @selection-change="handleSelectionChange"
         >
-        <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+        <el-table-column align="left" label="内容" prop="content">
+          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}<br>{{ scope.row.content }}</template>
         </el-table-column>
-        <el-table-column align="left" label="内容" prop="content" />
         </el-table>
         <div class="gva-pagination">
             <el-pagination
