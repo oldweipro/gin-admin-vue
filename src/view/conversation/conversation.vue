@@ -7,13 +7,8 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item>
-        <el-form-item label="消息父ID">
-            
-             <el-input v-model.number="searchInfo.parentId" placeholder="搜索条件" />
-
-        </el-form-item>
-        <el-form-item label="提问">
-         <el-input v-model="searchInfo.prompt" placeholder="搜索条件" />
+        <el-form-item label="消息内容">
+         <el-input v-model="searchInfo.content" placeholder="搜索条件" />
 
         </el-form-item>
         <el-form-item>
@@ -48,9 +43,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="消息父ID" prop="parentId" width="120" />
-        <el-table-column align="left" label="提问" prop="prompt" width="120" />
-        <el-table-column align="left" label="AI回复" prop="answerText" width="120" />
+        <el-table-column align="left" label="内容" prop="content" width="1200" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="primary" link icon="edit" class="table-button" @click="updateConversationFunc(scope.row)">变更</el-button>
@@ -105,27 +98,19 @@ import {
   deleteConversationByIds,
   updateConversation,
   findConversation,
-  getConversationList
+  getConversationRecordList
 } from '@/api/conversation'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
+import { formatDate } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
-
-// 自动化生成的字典（可能为空）以及字段
-const formData = ref({
-        parentId: 0,
-        prompt: '',
-        answerText: '',
-        })
 
 // 验证规则
 const rule = reactive({
 })
 
 const elFormRef = ref()
-
 
 // =========== 表格控制部分 ===========
 const page = ref(1)
@@ -161,7 +146,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getConversationList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getConversationRecordList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total

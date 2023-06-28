@@ -95,3 +95,11 @@ export const getConversationList = (params) => {
     params
   })
 }
+// 获取聊天记录
+export const getConversationRecordList = (params) => {
+  return service({
+    url: '/conversation/getConversationRecordList',
+    method: 'get',
+    params
+  })
+}
