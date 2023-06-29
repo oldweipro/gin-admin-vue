@@ -2,14 +2,16 @@
   <div>
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline" @keyup.enter="onSubmit">
-      <el-form-item label="创建时间">
-      <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始时间"></el-date-picker>
-       —
-      <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
-      </el-form-item>
+        <el-form-item label="创建时间">
+          <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始时间"></el-date-picker>
+          —
+          <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
+        </el-form-item>
         <el-form-item label="消息内容">
-         <el-input v-model="searchInfo.content" placeholder="搜索条件" />
-
+          <el-input v-model="searchInfo.content" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="用户">
+          <el-input v-model="searchInfo.CreatedBy" placeholder="用户ID" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -27,7 +29,7 @@
         @selection-change="handleSelectionChange"
         >
         <el-table-column align="left" label="内容" prop="content">
-          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}<br>{{ scope.row.content }}</template>
+          <template #default="scope">时间: {{ formatDate(scope.row.CreatedAt) }} | 用户:{{ scope.row.CreatedBy }}<br>{{ scope.row.content }}</template>
         </el-table-column>
         </el-table>
         <div class="gva-pagination">
