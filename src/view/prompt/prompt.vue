@@ -27,8 +27,8 @@
          <el-input v-model="searchInfo.content" placeholder="搜索条件" />
 
         </el-form-item>
-        <el-form-item label="快捷键" prop="shortcut_key">
-         <el-input v-model="searchInfo.shortcut_key" placeholder="搜索条件" />
+        <el-form-item label="快捷键" prop="shortcutKey">
+         <el-input v-model="searchInfo.shortcutKey" placeholder="搜索条件" />
 
         </el-form-item>
         <el-form-item>
@@ -72,7 +72,7 @@
             {{ filterDict(scope.row.isShare,isShareOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="快捷键" prop="shortcut_key" width="120" />
+        <el-table-column align="left" label="快捷键" prop="shortcutKey" width="120" />
         <el-table-column align="left" label="类别分类" prop="category" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.category,promptCategoryOptions) }}
@@ -117,8 +117,8 @@
             <el-option v-for="(item,key) in isShareOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="快捷键:"  prop="shortcut_key" >
-          <el-input v-model="formData.shortcut_key" :clearable="true"  placeholder="请输入" />
+        <el-form-item label="快捷键:"  prop="shortcutKey" >
+          <el-input v-model="formData.shortcutKey" :clearable="true"  placeholder="请输入" />
         </el-form-item>
         <el-form-item label="类别分类:"  prop="category" >
           <el-select v-model="formData.category" placeholder="请选择" style="width:100%" :clearable="true" >
@@ -169,7 +169,7 @@ const formData = ref({
         useFee: 0,
         content: '',
         isShare: undefined,
-        shortcut_key: '',
+        shortcutKey: '',
         category: undefined,
         useDuration: 0,
         })
@@ -400,7 +400,7 @@ const closeDialog = () => {
         useFee: 0,
         content: '',
         isShare: undefined,
-        shortcut_key: '',
+        shortcutKey: '',
         category: undefined,
         useDuration: 0,
         }
