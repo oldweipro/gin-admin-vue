@@ -1,6 +1,27 @@
 <template>
   <div>
-    <warning-bar title="注：右上角头像下拉可切换角色" />
+    <div class="gva-search-box">
+      <el-form :inline="true" :model="searchInfo" class="demo-form-inline" @keyup.enter="onSubmit">
+        <el-form-item label="用户名">
+          <el-input v-model.trim="searchInfo.username" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model.trim="searchInfo.phone" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="昵称">
+          <el-input v-model.trim="searchInfo.nickName" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="创建时间">
+          <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始时间"></el-date-picker>
+          —
+          <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
+          <el-button icon="refresh" @click="onReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
     <div class="gva-table-box">
       <div class="gva-btn-list">
         <el-button type="primary" icon="plus" @click="addUser">新增用户</el-button>
@@ -142,7 +163,7 @@
 
 <script>
 export default {
-  name: 'User',
+  name: 'UserView',
 }
 </script>
 
@@ -157,13 +178,25 @@ import {
 
 import { getAuthorityList } from '@/api/authority'
 import CustomPic from '@/components/customPic/index.vue'
-import ChooseImg from '@/components/chooseImg/index.vue'
-import WarningBar from '@/components/warningBar/warningBar.vue'
 import { setUserInfo, resetPassword } from '@/api/user.js'
 
 import { nextTick, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const path = ref(import.meta.env.VITE_BASE_API + '/')
+const searchInfo = ref({})
+
+// 重置
+const onReset = () => {
+  searchInfo.value = {}
+  getTableData()
+}
+
+// 搜索
+const onSubmit = () => {
+  page.value = 1
+  pageSize.value = 10
+  getTableData()
+}
 // 初始化相关
 const setAuthorityOptions = (AuthorityData, optionsData) => {
   AuthorityData &&
@@ -203,7 +236,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getUserList({ page: page.value, pageSize: pageSize.value })
+  const table = await getUserList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
