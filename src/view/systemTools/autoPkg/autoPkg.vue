@@ -6,7 +6,7 @@
         <el-button type="primary" icon="plus" @click="openDialog('addApi')">新增</el-button>
       </div>
       <el-table :data="tableData">
-        <el-table-column align="left" label="id" width="60" prop="ID" />
+        <el-table-column align="left" label="id" width="60" prop="id" />
         <el-table-column align="left" label="包名" width="150" prop="packageName" />
         <el-table-column align="left" label="展示名" width="150" prop="label" />
         <el-table-column align="left" label="描述" min-width="150" prop="desc" />

@@ -37,7 +37,7 @@
           style="width: 100%"
           tooltip-effect="dark"
           :data="tableData"
-          row-key="ID"
+          row-key="id"
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"/>
@@ -285,7 +285,7 @@ const onDelete = async() => {
   }
   multipleSelection.value &&
   multipleSelection.value.map(item => {
-    ids.push(item.ID)
+    ids.push(item.id)
   })
   const res = await deleteServerNodeByIds({ ids })
   if (res.code === 0) {
@@ -306,7 +306,7 @@ const type = ref('')
 
 // 更新行
 const updateServerNodeFunc = async(row) => {
-  const res = await findServerNode({ ID: row.ID })
+  const res = await findServerNode({ id: row.id })
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data.reserverNode
@@ -316,13 +316,13 @@ const updateServerNodeFunc = async(row) => {
 
 // 查看链接
 const getInboundsLink = async(row) => {
-  const res = await findInboundsLink({ sid: row.ID })
+  const res = await findInboundsLink({ sid: row.id })
   console.log(res)
 }
 
 // 删除行
 const deleteServerNodeFunc = async(row) => {
-  const res = await deleteServerNode({ ID: row.ID })
+  const res = await deleteServerNode({ id: row.id })
   if (res.code === 0) {
     ElMessage({
       type: 'success',

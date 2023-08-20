@@ -89,7 +89,7 @@ const buildApiTree = (apis) => {
   const apiTree = []
   for (const key in apiObj) {
     const treeNode = {
-      ID: key,
+      id: key,
       description: key + '组',
       children: apiObj[key]
     }

@@ -9,7 +9,7 @@
           type="selection"
           width="55"
         />
-        <el-table-column align="left" label="id" width="60" prop="ID" />
+        <el-table-column align="left" label="id" width="60" prop="id" />
         <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
@@ -114,7 +114,7 @@ const deleteRow = async(row) => {
     cancelButtonText: '取消',
     type: 'warning'
   }).then(async() => {
-    const res = await delSysHistory({ id: Number(row.ID) })
+    const res = await delSysHistory({ id: Number(row.id) })
     if (res.code === 0) {
       ElMessage.success('删除成功')
       getTableData()
@@ -138,7 +138,7 @@ const rollbackFunc = async(row, flag) => {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async() => {
-          const res = await rollback({ id: Number(row.ID), deleteTable: flag })
+          const res = await rollback({ id: Number(row.id), deleteTable: flag })
           if (res.code === 0) {
             ElMessage.success('回滚成功')
             getTableData()
@@ -152,7 +152,7 @@ const rollbackFunc = async(row, flag) => {
       cancelButtonText: '取消',
       type: 'warning'
     }).then(async() => {
-      const res = await rollback({ id: Number(row.ID), deleteTable: flag })
+      const res = await rollback({ id: Number(row.id), deleteTable: flag })
       if (res.code === 0) {
         ElMessage.success('回滚成功')
         getTableData()
@@ -163,7 +163,7 @@ const rollbackFunc = async(row, flag) => {
 const goAutoCode = (row) => {
   if (row) {
     router.push({ name: 'autoCodeEdit', params: {
-      id: row.ID
+      id: row.id
     }})
   } else {
     router.push({ name: 'autoCode' })

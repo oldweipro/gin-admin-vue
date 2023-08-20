@@ -45,7 +45,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
@@ -54,7 +54,7 @@
         </el-table-column>
         <el-table-column align="left" label="密钥" prop="sk" width="120" />
         <el-table-column align="left" label="密钥名字" prop="skName" width="120" />
-        <el-table-column align="left" label="关联用户ID" prop="userId" width="120" />
+        <el-table-column align="left" label="关联用户id" prop="userId" width="120" />
          <el-table-column align="left" label="过期时间" width="180">
             <template #default="scope">{{ formatDate(scope.row.expire) }}</template>
          </el-table-column>
@@ -86,7 +86,7 @@
         <el-form-item label="密钥名字:"  prop="skName" >
           <el-input v-model="formData.skName" :clearable="false"  placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="关联用户ID:"  prop="userId" >
+        <el-form-item label="关联用户id:"  prop="userId" >
           <el-input v-model.number="formData.userId" :clearable="false" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="过期时间:"  prop="expire" >
@@ -286,7 +286,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deleteSecretKeyByIds({ ids })
       if (res.code === 0) {
@@ -307,7 +307,7 @@ const type = ref('')
 
 // 更新行
 const updateSecretKeyFunc = async(row) => {
-    const res = await findSecretKey({ ID: row.ID })
+    const res = await findSecretKey({ id: row.id })
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data.resecretKey
@@ -318,7 +318,7 @@ const updateSecretKeyFunc = async(row) => {
 
 // 删除行
 const deleteSecretKeyFunc = async (row) => {
-    const res = await deleteSecretKey({ ID: row.ID })
+    const res = await deleteSecretKey({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',

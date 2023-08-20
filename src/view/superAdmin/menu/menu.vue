@@ -6,8 +6,8 @@
       </div>
 
       <!-- 由于此处菜单跟左侧列表一一对应所以不需要分页 pageSize默认999 -->
-      <el-table :data="tableData" row-key="ID">
-        <el-table-column align="left" label="ID" min-width="100" prop="ID" />
+      <el-table :data="tableData" row-key="id">
+        <el-table-column align="left" label="id" min-width="100" prop="id" />
         <el-table-column align="left" label="展示名称" min-width="120" prop="authorityName">
           <template #default="scope">
             <span>{{ scope.row.meta.title }}</span>
@@ -39,20 +39,20 @@
               type="primary"
               link
               icon="plus"
-              @click="addMenu(scope.row.ID)"
+              @click="addMenu(scope.row.id)"
             >添加子菜单</el-button>
             <el-button
               type="primary"
               link
               icon="edit"
-              @click="editMenu(scope.row.ID)"
+              @click="editMenu(scope.row.id)"
             >编辑</el-button>
             <el-button
 
               type="primary"
               link
               icon="delete"
-              @click="deleteMenu(scope.row.ID)"
+              @click="deleteMenu(scope.row.id)"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -98,13 +98,13 @@
             <el-option :value="true" label="是" />
           </el-select>
         </el-form-item>
-        <el-form-item label="父节点ID" style="width:30%">
+        <el-form-item label="父节点id" style="width:30%">
           <el-cascader
             v-model="form.parentId"
             style="width:100%"
             :disabled="!isEdit"
             :options="menuOption"
-            :props="{ checkStrictly: true,label:'title',value:'ID',disabled:'disabled',emitPath:false}"
+            :props="{ checkStrictly: true,label:'title',value:'id',disabled:'disabled',emitPath:false}"
             :show-all-levels="false"
             filterable
           />
@@ -325,18 +325,18 @@ const addBtn = (form) => {
 // 删除可控按钮
 const deleteBtn = async(btns, index) => {
   const btn = btns[index]
-  if (btn.ID === 0) {
+  if (btn.id === 0) {
     btns.splice(index, 1)
     return
   }
-  const res = await canRemoveAuthorityBtnApi({ id: btn.ID })
+  const res = await canRemoveAuthorityBtnApi({ id: btn.id })
   if (res.code === 0) {
     btns.splice(index, 1)
   }
 }
 
 const form = ref({
-  ID: 0,
+  id: 0,
   path: '',
   name: '',
   hidden: false,
@@ -362,14 +362,14 @@ const handleClose = (done) => {
   done()
 }
 // 删除菜单
-const deleteMenu = (ID) => {
+const deleteMenu = (id) => {
   ElMessageBox.confirm('此操作将永久删除所有角色下该菜单, 是否继续?', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
   })
     .then(async() => {
-      const res = await deleteBaseMenu({ ID })
+      const res = await deleteBaseMenu({ id })
       if (res.code === 0) {
         ElMessage({
           type: 'success',
@@ -395,7 +395,7 @@ const initForm = () => {
   checkFlag.value = false
   menuForm.value.resetFields()
   form.value = {
-    ID: 0,
+    id: 0,
     path: '',
     name: '',
     hidden: false,
@@ -442,14 +442,14 @@ const enterDialog = async() => {
 
 const menuOption = ref([
   {
-    ID: '0',
+    id: '0',
     title: '根菜单'
   }
 ])
 const setOptions = () => {
   menuOption.value = [
     {
-      ID: '0',
+      id: '0',
       title: '根目录'
     }
   ]
@@ -461,21 +461,21 @@ const setMenuOptions = (menuData, optionsData, disabled) => {
           if (item.children && item.children.length) {
             const option = {
               title: item.meta.title,
-              ID: String(item.ID),
-              disabled: disabled || item.ID === form.value.ID,
+              id: String(item.id),
+              disabled: disabled || item.id === form.value.id,
               children: []
             }
             setMenuOptions(
               item.children,
               option.children,
-              disabled || item.ID === form.value.ID
+              disabled || item.id === form.value.id
             )
             optionsData.push(option)
           } else {
             const option = {
               title: item.meta.title,
-              ID: String(item.ID),
-              disabled: disabled || item.ID === form.value.ID
+              id: String(item.id),
+              disabled: disabled || item.id === form.value.id
             }
             optionsData.push(option)
           }

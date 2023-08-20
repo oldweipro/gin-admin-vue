@@ -7,7 +7,7 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item>
-        <el-form-item label="认证身份ID">
+        <el-form-item label="认证身份id">
          <el-input v-model="searchInfo.certificationIdCard" placeholder="搜索条件" />
 
         </el-form-item>
@@ -44,7 +44,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
@@ -227,7 +227,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deleteCertificationRecordByIds({ ids })
       if (res.code === 0) {
@@ -248,7 +248,7 @@ const type = ref('')
 
 // 更新行
 const updateCertificationRecordFunc = async(row) => {
-    const res = await findCertificationRecord({ ID: row.ID })
+    const res = await findCertificationRecord({ id: row.id })
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data.recertificationRecord
@@ -259,7 +259,7 @@ const updateCertificationRecordFunc = async(row) => {
 
 // 删除行
 const deleteCertificationRecordFunc = async (row) => {
-    const res = await deleteCertificationRecord({ ID: row.ID })
+    const res = await deleteCertificationRecord({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',

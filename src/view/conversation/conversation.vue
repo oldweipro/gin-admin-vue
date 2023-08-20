@@ -11,7 +11,7 @@
           <el-input v-model="searchInfo.content" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item label="用户">
-          <el-input v-model="searchInfo.CreatedBy" placeholder="用户ID" />
+          <el-input v-model="searchInfo.CreatedBy" placeholder="用户id" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -25,7 +25,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column align="left" label="内容" prop="content">

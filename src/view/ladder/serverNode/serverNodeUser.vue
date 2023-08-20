@@ -13,7 +13,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
       >
         <el-table-column align="left" label="带宽" prop="bandwidth"/>
@@ -177,7 +177,7 @@ const dialogFormVisible = ref(false)
 
 // 查看链接
 const getInboundsLink = async(row) => {
-  const res = await findInboundsLink({ sid: row.ID })
+  const res = await findInboundsLink({ sid: row.id })
   if (res.code === 0) {
     inboundsData.value = res.data.inboundsData
     inboundsData.value.domain = res.data.domain
@@ -187,7 +187,7 @@ const getInboundsLink = async(row) => {
 }
 
 const resetInboundsLink = async(row) => {
-  inboundsData.value.sid = row.ID
+  inboundsData.value.sid = row.id
   await setInboundsLink(inboundsData.value)
   ElMessage.warning('重置完成')
 }

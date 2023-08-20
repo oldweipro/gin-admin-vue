@@ -7,7 +7,7 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item>
-        <el-form-item label="用户ID">
+        <el-form-item label="用户id">
 
              <el-input v-model.number="searchInfo.userId" placeholder="搜索条件" />
 
@@ -37,18 +37,18 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="用户ID" prop="userId" width="120" />
-        <el-table-column align="left" label="钱包ID" prop="walletId" width="120" />
+        <el-table-column align="left" label="用户id" prop="userId" width="120" />
+        <el-table-column align="left" label="钱包id" prop="walletId" width="120" />
         <el-table-column align="left" label="交易类型" prop="typeEnum" width="120" />
         <el-table-column align="left" label="交易金额" prop="amount" width="120" />
-        <el-table-column align="left" label="商品ID" prop="productId" width="120" />
+        <el-table-column align="left" label="商品id" prop="productId" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="primary" link icon="edit" class="table-button" @click="updateTransactionHistoryFunc(scope.row)">变更</el-button>
@@ -70,10 +70,10 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="用户ID:"  prop="userId" >
+        <el-form-item label="用户id:"  prop="userId" >
           <el-input v-model.number="formData.userId" :clearable="false" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="钱包ID:"  prop="walletId" >
+        <el-form-item label="钱包id:"  prop="walletId" >
           <el-input v-model.number="formData.walletId" :clearable="false" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="交易类型:"  prop="typeEnum" >
@@ -84,7 +84,7 @@
         <el-form-item label="交易金额:"  prop="amount" >
           <el-input v-model.number="formData.amount" :clearable="false" placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="商品ID:"  prop="productId" >
+        <el-form-item label="商品id:"  prop="productId" >
           <el-input v-model.number="formData.productId" :clearable="false" placeholder="请输入" />
         </el-form-item>
       </el-form>
@@ -248,7 +248,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deleteTransactionHistoryByIds({ ids })
       if (res.code === 0) {
@@ -269,7 +269,7 @@ const type = ref('')
 
 // 更新行
 const updateTransactionHistoryFunc = async(row) => {
-    const res = await findTransactionHistory({ ID: row.ID })
+    const res = await findTransactionHistory({ id: row.id })
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data.retransactionHistory
@@ -280,7 +280,7 @@ const updateTransactionHistoryFunc = async(row) => {
 
 // 删除行
 const deleteTransactionHistoryFunc = async (row) => {
-    const res = await deleteTransactionHistory({ ID: row.ID })
+    const res = await deleteTransactionHistory({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',

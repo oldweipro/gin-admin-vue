@@ -87,7 +87,7 @@
         </el-form-item>
         <el-form-item label="Package（包）" prop="package">
           <el-select v-model="form.package" style="width:194px">
-            <el-option v-for="item in pkgs" :key="item.ID" :value="item.packageName" :label="item.packageName" />
+            <el-option v-for="item in pkgs" :key="item.id" :value="item.packageName" :label="item.packageName" />
           </el-select>
           <el-icon class="auto-icon" @click="getPkgs"><refresh /></el-icon>
           <el-icon class="auto-icon" @click="goPkgs"><document-add /></el-icon>

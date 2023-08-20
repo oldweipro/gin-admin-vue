@@ -12,7 +12,7 @@
         :props="menuDefaultProps"
         default-expand-all
         highlight-current
-        node-key="ID"
+        node-key="id"
         show-checkbox
         :filter-node-method="filterNode"
         @check="nodeChange"
@@ -50,7 +50,7 @@
       <el-table
         ref="btnTableRef"
         :data="btnData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
@@ -154,7 +154,7 @@ const multipleSelection = ref([])
 const btnTableRef = ref()
 let menuID = ''
 const OpenBtn = async(data) => {
-  menuID = data.ID
+  menuID = data.id
   const res = await getAuthorityBtnApi({ menuID: menuID, authorityId: props.row.authorityId })
   if (res.code === 0) {
     openDialog(data)
@@ -162,7 +162,7 @@ const OpenBtn = async(data) => {
     if (res.data.selected) {
       res.data.selected.forEach(id => {
         btnData.value.some(item => {
-          if (item.ID === id) {
+          if (item.id === id) {
             btnTableRef.value.toggleRowSelection(item, true)
           }
         })
@@ -184,7 +184,7 @@ const closeDialog = () => {
   btnVisible.value = false
 }
 const enterDialog = async() => {
-  const selected = multipleSelection.value.map(item => item.ID)
+  const selected = multipleSelection.value.map(item => item.id)
   const res = await setAuthorityBtnApi({
     menuID,
     selected,

@@ -56,7 +56,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
@@ -337,7 +337,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deletePromptByIds({ ids })
       if (res.code === 0) {
@@ -358,7 +358,7 @@ const type = ref('')
 
 // 更新行
 const updatePromptFunc = async(row) => {
-    const res = await findPrompt({ ID: row.ID })
+    const res = await findPrompt({ id: row.id })
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data.reprompt
@@ -369,7 +369,7 @@ const updatePromptFunc = async(row) => {
 
 // 删除行
 const deletePromptFunc = async (row) => {
-    const res = await deletePrompt({ ID: row.ID })
+    const res = await deletePrompt({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',

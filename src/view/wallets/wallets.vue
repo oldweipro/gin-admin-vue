@@ -36,14 +36,14 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="用户ID" prop="userId" width="120" />
+        <el-table-column align="left" label="用户id" prop="userId" width="120" />
         <el-table-column align="left" label="钱包名称" prop="walletName" width="120" />
         <el-table-column align="left" label="余额" prop="balance" width="120" />
         <el-table-column align="left" label="按钮组">
@@ -67,7 +67,7 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="用户ID:"  prop="userId" >
+        <el-form-item label="用户id:"  prop="userId" >
           <el-input v-model.number="formData.userId" :clearable="false" placeholder="请输入" />
         </el-form-item>
         <el-form-item label="钱包名称:"  prop="walletName" >
@@ -119,7 +119,7 @@ const formData = ref({
 const rule = reactive({
                userId : [{
                    required: true,
-                   message: '用户ID不能为空',
+                   message: '用户id不能为空',
                    trigger: ['input','blur'],
                }],
 })
@@ -216,7 +216,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deleteWalletsByIds({ ids })
       if (res.code === 0) {
@@ -237,7 +237,7 @@ const type = ref('')
 
 // 更新行
 const updateWalletsFunc = async(row) => {
-    const res = await findWallets({ ID: row.ID })
+    const res = await findWallets({ id: row.id })
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data.rewallets
@@ -248,7 +248,7 @@ const updateWalletsFunc = async(row) => {
 
 // 删除行
 const deleteWalletsFunc = async (row) => {
-    const res = await deleteWallets({ ID: row.ID })
+    const res = await deleteWallets({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',

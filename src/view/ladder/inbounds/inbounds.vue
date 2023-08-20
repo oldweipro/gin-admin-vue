@@ -34,14 +34,14 @@
           style="width: 100%"
           tooltip-effect="dark"
           :data="tableData"
-          row-key="ID"
+          row-key="id"
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"/>
         <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="入站规则的ID" prop="bid" width="120"/>
+        <el-table-column align="left" label="入站规则的id" prop="bid" width="120"/>
         <el-table-column align="left" label="上行流量" prop="up" width="120"/>
         <el-table-column align="left" label="下行流量" prop="down" width="120"/>
         <el-table-column align="left" label="限制总量" prop="total" width="120"/>
@@ -79,7 +79,7 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="入站规则的ID:" prop="bid">
+        <el-form-item label="入站规则的id:" prop="bid">
           <el-input v-model.number="formData.bid" :clearable="true" placeholder="请输入"/>
         </el-form-item>
         <el-form-item label="上行流量:" prop="up">
@@ -267,7 +267,7 @@ const onDelete = async() => {
   }
   multipleSelection.value &&
   multipleSelection.value.map(item => {
-    ids.push(item.ID)
+    ids.push(item.id)
   })
   const res = await deleteInboundsByIds({ ids })
   if (res.code === 0) {
@@ -288,7 +288,7 @@ const type = ref('')
 
 // 更新行
 const updateInboundsFunc = async(row) => {
-  const res = await findInbounds({ ID: row.ID })
+  const res = await findInbounds({ id: row.id })
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data.reinbounds
@@ -298,7 +298,7 @@ const updateInboundsFunc = async(row) => {
 
 // 删除行
 const deleteInboundsFunc = async(row) => {
-  const res = await deleteInbounds({ ID: row.ID })
+  const res = await deleteInbounds({ id: row.id })
   if (res.code === 0) {
     ElMessage({
       type: 'success',

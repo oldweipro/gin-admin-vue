@@ -56,7 +56,7 @@
           type="selection"
           width="55"
         />
-        <el-table-column align="left" label="id" min-width="60" prop="ID" sortable="custom" />
+        <el-table-column align="left" label="id" min-width="60" prop="id" sortable="custom" />
         <el-table-column align="left" label="API路径" min-width="150" prop="path" sortable="custom" />
         <el-table-column align="left" label="API分组" min-width="150" prop="apiGroup" sortable="custom" />
         <el-table-column align="left" label="API简介" min-width="150" prop="description" sortable="custom" />
@@ -235,7 +235,7 @@ const handleCurrentChange = (val) => {
 // 排序
 const sortChange = ({ prop, order }) => {
   if (prop) {
-    if (prop === 'ID') {
+    if (prop === 'id') {
       prop = 'id'
     }
     searchInfo.value.orderKey = toSQLLine(prop)
@@ -264,7 +264,7 @@ const handleSelectionChange = (val) => {
 
 const deleteVisible = ref(false)
 const onDelete = async() => {
-  const ids = apis.value.map(item => item.ID)
+  const ids = apis.value.map(item => item.id)
   const res = await deleteApisByIds({ ids })
   if (res.code === 0) {
     ElMessage({
@@ -324,7 +324,7 @@ const closeDialog = () => {
 }
 
 const editApiFunc = async(row) => {
-  const res = await getApiById({ id: row.ID })
+  const res = await getApiById({ id: row.id })
   form.value = res.data.api
   openDialog('edit')
 }

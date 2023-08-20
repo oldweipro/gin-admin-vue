@@ -35,7 +35,7 @@
         style="width: 100%"
         tooltip-effect="dark"
         :data="tableData"
-        row-key="ID"
+        row-key="id"
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
@@ -214,7 +214,7 @@ const onDelete = async() => {
       }
       multipleSelection.value &&
         multipleSelection.value.map(item => {
-          ids.push(item.ID)
+          ids.push(item.id)
         })
       const res = await deleteFeedbackByIds({ ids })
       if (res.code === 0) {
@@ -235,10 +235,10 @@ const type = ref('')
 
 // 更新行
 const updateFeedbackFunc = async(row) => {
-  const res = await findFeedback({ ID: row.ID })
+  const res = await findFeedback({ id: row.id })
   type.value = 'update'
   if (res.code === 0) {
-    formData.value.parentId = res.data.refeedback.ID
+    formData.value.parentId = res.data.refeedback.id
     formData.value.feedbackText = res.data.refeedback.feedbackText
     dialogFormVisible.value = true
   }
@@ -246,7 +246,7 @@ const updateFeedbackFunc = async(row) => {
 
 // 删除行
 const deleteFeedbackFunc = async (row) => {
-    const res = await deleteFeedback({ ID: row.ID })
+    const res = await deleteFeedback({ id: row.id })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',
