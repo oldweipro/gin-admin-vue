@@ -49,7 +49,7 @@
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+            <template #default="scope">{{ formatDate(scope.row.createdAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="身份证号" prop="certificationIdCard" width="180" />
         <el-table-column align="left" label="真实姓名" prop="certificationRealName" width="120" />

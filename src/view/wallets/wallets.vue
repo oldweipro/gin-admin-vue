@@ -41,7 +41,7 @@
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+            <template #default="scope">{{ formatDate(scope.row.createdAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="用户id" prop="userId" width="120" />
         <el-table-column align="left" label="钱包名称" prop="walletName" width="120" />

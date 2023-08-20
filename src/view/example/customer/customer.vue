@@ -15,7 +15,7 @@
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="接入日期" width="180">
           <template #default="scope">
-            <span>{{ formatDate(scope.row.CreatedAt) }}</span>
+            <span>{{ formatDate(scope.row.createdAt) }}</span>
           </template>
         </el-table-column>
         <el-table-column align="left" label="姓名" prop="customerName" width="120" />

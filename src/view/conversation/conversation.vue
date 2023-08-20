@@ -29,7 +29,7 @@
         @selection-change="handleSelectionChange"
         >
         <el-table-column align="left" label="内容" prop="content">
-          <template #default="scope">时间: {{ formatDate(scope.row.CreatedAt) }} | 用户:{{ scope.row.CreatedBy }}<br>{{ scope.row.content }}</template>
+          <template #default="scope">时间: {{ formatDate(scope.row.createdAt) }} | 用户:{{ scope.row.CreatedBy }}<br>{{ scope.row.content }}</template>
         </el-table-column>
         </el-table>
         <div class="gva-pagination">

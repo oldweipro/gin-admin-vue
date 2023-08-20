@@ -78,7 +78,7 @@
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+            <template #default="scope">{{ formatDate(scope.row.createdAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="任务名称" prop="taskName" width="120" />
         <el-table-column align="left" label="任务内容" prop="taskItemIdList" width="120">
@@ -506,7 +506,7 @@ const enterDialog = async() => {
         res = await createPatrolTask(requestFormData)
         break
       case 'update':
-        requestFormData.CreatedAt = formData.value.CreatedAt
+        requestFormData.createdAt = formData.value.createdAt
         res = await updatePatrolTask(requestFormData)
         break
       default:

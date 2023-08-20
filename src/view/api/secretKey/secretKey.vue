@@ -50,7 +50,7 @@
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+            <template #default="scope">{{ formatDate(scope.row.createdAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="密钥" prop="sk" width="120" />
         <el-table-column align="left" label="密钥名字" prop="skName" width="120" />

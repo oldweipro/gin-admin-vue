@@ -40,7 +40,7 @@
         >
         <el-table-column type="selection" width="55" />
         <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+            <template #default="scope">{{ formatDate(scope.row.createdAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="反馈" prop="feedbackText" width="120" />
         <el-table-column align="left" label="回复" prop="replyText" width="120" />
