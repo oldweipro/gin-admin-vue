@@ -122,6 +122,10 @@ service.interceptors.response.use(
             router.push({ name: 'Login', replace: true })
           })
         break
+      case 401:
+        localStorage.clear()
+        router.push({ name: 'Login', replace: true })
+        break
       case 404:
         ElMessageBox.confirm(`
           <p>检测到接口错误${error}</p>
